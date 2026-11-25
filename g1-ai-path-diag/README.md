@@ -34,4 +34,10 @@ https://cdn.jsdelivr.net/gh/xl7023aaa/sd@abd34bc3c3879705e7367c0faff9a00dd8d53b3
 
 https://raw.githubusercontent.com/xl7023aaa/sd/abd34bc3c3879705e7367c0faff9a00dd8d53b35/g1-ai-path-diag/g1-ai-path-diag.js
 
-同目录的 `g1-ai-path-diag.sgmodule` 只追加 `one.google.com` 的 MITM。在 Shadowrocket 中用该模块的 HTTPS 链接导入。本机仍需自行打开 HTTPS 解密并信任证书，脚本才看得到这个路径。
+同目录的 `g1-ai-path-diag.sgmodule` 只追加 `one.google.com` 的 MITM。在 Shadowrocket 中导入下面这个固定提交的模块。本机仍需自行打开 HTTPS 解密并信任证书，脚本才看得到这个路径。
+
+https://cdn.jsdelivr.net/gh/xl7023aaa/sd@6953906dd642c017f216e1145f9f27349f54d3c5/g1-ai-path-diag/g1-ai-path-diag.sgmodule
+
+同一模块提交的 GitHub raw 地址：
+
+https://raw.githubusercontent.com/xl7023aaa/sd/6953906dd642c017f216e1145f9f27349f54d3c5/g1-ai-path-diag/g1-ai-path-diag.sgmodule
