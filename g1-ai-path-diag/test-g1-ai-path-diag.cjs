@@ -213,18 +213,38 @@ test("resilience: store read or write failures still pass the response through",
   }
 });
 
-test("module: only added when it points at a pinned remote script", () => {
-  if (!fs.existsSync(MODULE_PATH)) return;
+test("module: pinned script URL, one host, no capture or plan-change arguments", () => {
+  assert.equal(fs.existsSync(MODULE_PATH), true);
   const text = fs.readFileSync(MODULE_PATH, "utf8");
+  const scriptUrl = "https://cdn.jsdelivr.net/gh/xl7023aaa/sd@abd34bc3c3879705e7367c0faff9a00dd8d53b35/g1-ai-path-diag/g1-ai-path-diag.js";
   assert.equal(/apple\.com|itunes|buy\.itunes|mzstatic|REJECT|UDP|\bAND\b/i.test(text), false);
   assert.equal(/argument\s*=/i.test(text), false);
   assert.equal(/requires-body\s*=\s*1/i.test(text), false);
+  assert.equal(/rewrite|sku|ip_90p|g1\.ios/i.test(text), false);
   assert.match(text, /hostname = %APPEND% one\.google\.com\s*$/m);
-  const found = text.match(/script-path=(https:\/\/\S+)/);
-  assert.ok(found, "absolute script-path");
-  assert.match(found[1], /^https:\/\/.+\/g1-ai-path-diag\.js$/);
-  assert.match(found[1], /[0-9a-f]{40}/);
-  assert.equal(found[1].includes("@main/") || found[1].includes("/main/"), false);
+  assert.equal(text.includes("script-path=" + scriptUrl), true);
+  const pattern = text.match(/pattern=(\S+),requires-body=0,script-path=/)[1];
+  const re = new RegExp(pattern);
+  for (const url of [
+    "https://one.google.com/ai",
+    "https://one.google.com/ai/",
+    "https://one.google.com/ai?hl=en",
+    "https://one.google.com/ai/?hl=en",
+    "https://one.google.com:443/ai",
+    "https://one.google.com/ai#plans"
+  ]) {
+    assert.equal(re.test(url), true, url);
+  }
+  for (const url of [
+    "https://one.google.com/ai2",
+    "https://one.google.com/ai/extra",
+    "https://one.google.com/plans",
+    "http://one.google.com/ai",
+    "https://one.google.com:8443/ai",
+    "https://gemini.google.com/ai"
+  ]) {
+    assert.equal(re.test(url), false, url);
+  }
 });
 
 console.log("PASS " + results.length + "/" + results.length + " tests");

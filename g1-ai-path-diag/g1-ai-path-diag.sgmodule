@@ -1,0 +1,9 @@
+#!name=G1 AI Path Diag
+#!desc=只读诊断：仅记录 one.google.com 的 /ai 与 /ai/ 是否命中及次数；不改写响应，不能改变套餐或价格，未经 iPhone 实测
+#!system=ios
+
+[Script]
+g1-ai-path-diag = type=http-response,pattern=^https:\/\/one\.google\.com(?::443)?\/ai\/?($|\?|#),requires-body=0,script-path=https://cdn.jsdelivr.net/gh/xl7023aaa/sd@abd34bc3c3879705e7367c0faff9a00dd8d53b35/g1-ai-path-diag/g1-ai-path-diag.js
+
+[MITM]
+hostname = %APPEND% one.google.com

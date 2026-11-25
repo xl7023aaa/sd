@@ -24,4 +24,14 @@
 - 模块若启用，MITM 只追加 `one.google.com`，不含 Apple 域名，不扩大其他域名，不含全局 UDP 拦截。
 - 未经 iPhone、Gemini App 或实机 Shadowrocket 测试。看到 `/ai` 只表示脚本遇见了这个路径。
 
-远程模块链接会在脚本提交固定后写入模块的 `script-path`，不使用相对路径。
+## 远程脚本
+
+`script-path` 固定指向这次脚本提交，不使用相对路径：
+
+https://cdn.jsdelivr.net/gh/xl7023aaa/sd@abd34bc3c3879705e7367c0faff9a00dd8d53b35/g1-ai-path-diag/g1-ai-path-diag.js
+
+同一提交的 GitHub raw 地址：
+
+https://raw.githubusercontent.com/xl7023aaa/sd/abd34bc3c3879705e7367c0faff9a00dd8d53b35/g1-ai-path-diag/g1-ai-path-diag.js
+
+同目录的 `g1-ai-path-diag.sgmodule` 只追加 `one.google.com` 的 MITM。在 Shadowrocket 中用该模块的 HTTPS 链接导入。本机仍需自行打开 HTTPS 解密并信任证书，脚本才看得到这个路径。
